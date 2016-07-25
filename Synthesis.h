@@ -3,6 +3,7 @@
 
 #include "IPlug_include_in_plug_hdr.h"
 #include "Oscillator.h"
+#include "MIDIReceiver.h"
 
 class Synthesis : public IPlug
 {
@@ -14,11 +15,27 @@ public:
   void OnParamChange(int paramIdx);
   void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
 
+  // Needed for the GUI keyboard:
+  // Should return non-zero if one or more keys are playing.
+  inline int GetNumKeys() const { return mMIDIReceiver.getNumKeys(); };
+  // Should return true if the specified key is playing.
+  inline bool GetKeyStatus(int key) const { return mMIDIReceiver.getKeyStatus(key); };
+  static const int virtualKeyboardMinimumNoteNumber = 48;
+  int lastVirtualKeyboardNoteNumber;
+
 private:
   double mDistiortionAmount;
   void CreatePresets();
   double mFrequency;
   Oscillator mOscillator;
+  MIDIReceiver mMIDIReceiver;
+  IControl* mVirtualKeyboard;
+  void processVirtualKeyboard();
+
+
+  void ProcessMidiMsg(IMidiMsg* pMsg);
 };
+
+
 
 #endif

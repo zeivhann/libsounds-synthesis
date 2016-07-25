@@ -29,7 +29,6 @@ void Oscillator::updateIncrement()
 
 void Oscillator::generate(double* buffer, int nFrames)
 {
-	const double twoPI = 2 * mPI;
 	switch (mOscillatorMode)
 	{
 	case OSCILLATOR_MODE_SINE:
@@ -81,4 +80,35 @@ void Oscillator::generate(double* buffer, int nFrames)
 		}
 		break;
 	}
+}
+
+double Oscillator::nextSample() {
+	double value = 0.0;
+	if (isMuted) return value;
+
+	switch (mOscillatorMode) {
+	case OSCILLATOR_MODE_SINE:
+		value = sin(mPhase);
+		break;
+	case OSCILLATOR_MODE_SAW:
+		value = 1.0 - (2.0 * mPhase / twoPI);
+		break;
+	case OSCILLATOR_MODE_SQUARE:
+		if (mPhase <= mPI) {
+			value = 1.0;
+		}
+		else {
+			value = -1.0;
+		}
+		break;
+	case OSCILLATOR_MODE_TRIANGLE:
+		value = -1.0 + (2.0 * mPhase / twoPI);
+		value = 2.0 * (fabs(value) - 0.5);
+		break;
+	}
+	mPhase += mPhaseIncrement;
+	while (mPhase >= twoPI) {
+		mPhase -= twoPI;
+	}
+	return value;
 }
