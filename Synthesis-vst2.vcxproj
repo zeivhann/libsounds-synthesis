@@ -236,6 +236,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\WDL\IPlug\IPlugVST.h" />
+    <ClInclude Include="EnvelopeGenerator.h" />
     <ClInclude Include="MIDIReceiver.h" />
     <ClInclude Include="Oscillator.h" />
     <ClInclude Include="Synthesis.h" />
@@ -243,12 +244,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\WDL\IPlug\IPlugVST.cpp" />
+    <ClCompile Include="EnvelopeGenerator.cpp" />
     <ClCompile Include="MIDIReceiver.cpp" />
     <ClCompile Include="Oscillator.cpp" />
     <ClCompile Include="Synthesis.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Synthesis.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

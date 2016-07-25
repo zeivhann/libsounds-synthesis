@@ -31,6 +31,8 @@ void MIDIReceiver::advance() {
 				mLastNoteNumber = noteNumber;
 				mLastFrequency = noteNumberToFrequency(mLastNoteNumber);
 				mLastVelocity = velocity;
+				// Emit a "note on" signal from Gallant:
+				noteOn(noteNumber, velocity);
 			}
 		} else {
 			if (mKeyStatus[noteNumber] == true) {
@@ -40,8 +42,7 @@ void MIDIReceiver::advance() {
 			// If the last note was released, nothing should play:
 			if (noteNumber == mLastNoteNumber) {
 				mLastNoteNumber = -1;
-				mLastFrequency = -1;
-				mLastVelocity = 0;
+				noteOff(noteNumber, mLastVelocity);
 			}
 		}
 		mMidiQueue.Remove();

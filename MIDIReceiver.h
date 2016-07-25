@@ -4,6 +4,8 @@
 #pragma clang diagnostic pop
 
 #include "IMidiQueue.h"
+#include "GallantSignal.h"
+using Gallant::Signal2;
 
 class MIDIReceiver
 {
@@ -29,6 +31,8 @@ public:
 			mKeyStatus[i] = false;
 		}
 	};
+	Signal2< int, int > noteOn;
+	Signal2< int, int > noteOff;
 
 	//returns true if the key with a given index is currently pressed
 	inline bool getKeyStatus(int keyIndex) const { return mKeyStatus[keyIndex]; }

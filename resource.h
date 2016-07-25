@@ -61,17 +61,21 @@ instrument determined by PLUG _IS _INST
 
 // GUI default dimensions
 #define GUI_WIDTH 434
-#define GUI_HEIGHT 66
+#define GUI_HEIGHT 296
 
   // Unique IDs for each image resource
 #define BG_ID			101
 #define WHITE_KEY_ID	102
 #define BLACK_KEY_ID	103
+#define WAVEFORM_ID		104
+#define KNOB_ID			105
 
 // Image resource locations for this plug
-#define BG_FN			"resources/img/keys_bg.png"
+#define BG_FN			"resources/img/bg.png"
 #define WHITE_KEY_FN	"resources/img/white_key.png"
 #define BLACK_KEY_FN	"resources/img/black_key.png"
+#define WAVEFORM_FN		"resources/img/waveform.png"
+#define KNOB_FN			"resources/img/knob.png"
 
 // on MSVC, you must define SA_API in the resource editor preprocessor macros as well as the c++ ones
 #if defined(SA_API) && !defined(OS_IOS)

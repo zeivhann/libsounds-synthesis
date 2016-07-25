@@ -4,6 +4,7 @@
 #include "IPlug_include_in_plug_hdr.h"
 #include "Oscillator.h"
 #include "MIDIReceiver.h"
+#include "EnvelopeGenerator.h"
 
 class Synthesis : public IPlug
 {
@@ -28,9 +29,14 @@ private:
   void CreatePresets();
   double mFrequency;
   Oscillator mOscillator;
+  EnvelopeGenerator mEnvelopeGenerator;
   MIDIReceiver mMIDIReceiver;
   IControl* mVirtualKeyboard;
   void processVirtualKeyboard();
+  inline void onNoteOn(const int noteNumber, const int velocity) { mEnvelopeGenerator.enterStage(EnvelopeGenerator::ENVELOPE_STAGE_ATTACK); };
+  inline void onNoteOff(const int noteNumber, const int velocity) { mEnvelopeGenerator.enterStage(EnvelopeGenerator::ENVELOPE_STAGE_RELEASE); };
+  inline void onBeganEnvelopeCycle() { mOscillator.setMuted(false);  }
+  inline void onFinishedEnvelopeCycle() { mOscillator.setMuted(true); }
 
 
   void ProcessMidiMsg(IMidiMsg* pMsg);
